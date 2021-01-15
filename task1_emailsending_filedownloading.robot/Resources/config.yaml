@@ -1,0 +1,19 @@
+const:
+    url:  http://6666:Pak123@63.141.240.125/
+
+    email: rpa.test.mm.isb@gmail.com
+    password: mm@12345678
+    subject_filter: Add agent to the portal
+    subject: No attachment
+    email_body: Email From Robot
+    rootdir: ${CURDIR}${/}
+    filedir: attachments
+    testFile: agents.csv
+    reply_message: user has been added to the portal
+    user_pass: 6666
+    phone_pass: sms003
+    outbound_cid: 9878
+    status: User added to the portal
+
+
+artifactsDir: out

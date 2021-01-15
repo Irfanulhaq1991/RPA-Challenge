@@ -1,0 +1,21 @@
+<input _ngcontent-c1="" class="btn uiColorButton" type="submit" value="Submit">
+<button _ngcontent-c1="" class="waves-effect col s12 m12 l12 btn-large uiColorButton">Start</button>
+//input[@ng-reflect-name='labelFirstName']
+//input[@ng-reflect-name='labelLastName']
+//input[@ng-reflect-name='labelAddress']
+//input[@ng-reflect-name='labelEmail']
+//input[@ng-reflect-name='labelPhone']
+//input[@ng-reflect-name='labelRole']
+//input[@ng-reflect-name='labelCompanyName']
+
+//input[@type='submit']
+
+Input Text  xpath://input[@ng-reflect-name='labelFirstName']
+Input Text  xpath://input[@ng-reflect-name='labelLastName']
+Input Text  xpath://input[@ng-reflect-name='labelAddress']
+Input Text  xpath://input[@ng-reflect-name='labelEmail']
+Input Text  xpath://input[@ng-reflect-name='labelPhone']
+Input Text  xpath://input[@ng-reflect-name='labelRole']
+Input Text  xpath://input[@ng-reflect-name='labelCompanyName']
+Click Button   xpath://input[@type='submit']
+

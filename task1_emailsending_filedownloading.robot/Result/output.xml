@@ -1,0 +1,631 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.2.2 (Python 3.7.4 on win32)" generated="20210104 22:22:01.332" rpa="true">
+<suite id="s1" name="Task" source="D:\Irfan\Projects\Python\python_projects\assignments\task1_emailsending_filedownloading.robot\task.robot">
+<test id="s1-t1" name="Download Attachement, Fetch Data From The Attachment, And Fill The Form With Feched Data">
+<kw name="Login With Email And Password">
+<arguments>
+<arg>${EMAIL}</arg>
+<arg>${PASSWORD}</arg>
+</arguments>
+<kw name="Authorize" library="Autosphere.Email.ImapSmtp">
+<doc>Authorize user to SMTP and IMAP servers.</doc>
+<arguments>
+<arg>account=${EMAIL}</arg>
+<arg>password=${PASSWORD}</arg>
+</arguments>
+<msg timestamp="20210104 22:22:01.894" level="INFO">protecting keyword: autosphere.email.imapsmtp.authorize</msg>
+<msg timestamp="20210104 22:22:09.219" level="INFO">Log level changed from NONE to INFO.</msg>
+<status status="PASS" starttime="20210104 22:22:01.894" endtime="20210104 22:22:09.218"></status>
+</kw>
+<status status="PASS" starttime="20210104 22:22:01.893" endtime="20210104 22:22:09.219"></status>
+</kw>
+<kw name="List Email With Subject">
+<arguments>
+<arg>${RECEIVED_EMAIL_SUBJECT_FILTER}</arg>
+</arguments>
+<assign>
+<var>@{emails_list}</var>
+</assign>
+<kw name="Create List" library="BuiltIn">
+<doc>Returns a list containing given items.</doc>
+<assign>
+<var>${email_list}</var>
+</assign>
+<msg timestamp="20210104 22:22:09.223" level="INFO">${email_list} = []</msg>
+<status status="PASS" starttime="20210104 22:22:09.222" endtime="20210104 22:22:09.223"></status>
+</kw>
+<kw name="List Messages" library="Autosphere.Email.ImapSmtp">
+<doc>Return list of messages matching criterion.</doc>
+<arguments>
+<arg>SUBJECT "${subject}"</arg>
+</arguments>
+<assign>
+<var>@{emails}</var>
+</assign>
+<msg timestamp="20210104 22:22:09.225" level="INFO">List messages: SUBJECT "Add agent to the portal"</msg>
+<msg timestamp="20210104 22:22:10.179" level="INFO">@{emails} = [ {'Mail-Id': b'1', 'Message': &lt;email.message.Message object at 0x0000020D84294C48&gt;, 'Delivered-To': &lt;email.header.Header object at 0x0000020D84294708&gt;, 'Received': &lt;email.header.Header object at 0x00...</msg>
+<status status="PASS" starttime="20210104 22:22:09.224" endtime="20210104 22:22:10.179"></status>
+</kw>
+<kw name="${email} IN [ @{emails} ]" type="for">
+<kw name="${email} = {'Mail-Id': b'1', 'Message': &lt;email.message.Message object at 0x0000020D84294C48&gt;, 'Delivered-To': &lt;email.header.Header object at 0x0000020D84294708&gt;, 'Received': &lt;email.header.Header object at 0x0000..." type="foritem">
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${email_list}</arg>
+<arg>${email}</arg>
+</arguments>
+<status status="PASS" starttime="20210104 22:22:10.181" endtime="20210104 22:22:10.182"></status>
+</kw>
+<kw name="Exit For Loop" library="BuiltIn">
+<doc>Stops executing the enclosing for loop.</doc>
+<msg timestamp="20210104 22:22:10.183" level="INFO">Exiting for loop altogether.</msg>
+<status status="PASS" starttime="20210104 22:22:10.182" endtime="20210104 22:22:10.183"></status>
+</kw>
+<status status="PASS" starttime="20210104 22:22:10.180" endtime="20210104 22:22:10.184"></status>
+</kw>
+<status status="PASS" starttime="20210104 22:22:10.180" endtime="20210104 22:22:10.184"></status>
+</kw>
+<msg timestamp="20210104 22:22:10.185" level="INFO">@{emails_list} = [ {'Mail-Id': b'1', 'Message': &lt;email.message.Message object at 0x0000020D84294C48&gt;, 'Delivered-To': &lt;email.header.Header object at 0x0000020D84294708&gt;, 'Received': &lt;email.header.Header object at 0x00...</msg>
+<status status="PASS" starttime="20210104 22:22:09.221" endtime="20210104 22:22:10.185"></status>
+</kw>
+<kw name="Get Length" library="BuiltIn">
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<arguments>
+<arg>${emails_list}</arg>
+</arguments>
+<assign>
+<var>${emails_count}</var>
+</assign>
+<msg timestamp="20210104 22:22:10.188" level="INFO">Length is 1</msg>
+<msg timestamp="20210104 22:22:10.188" level="INFO">${emails_count} = 1</msg>
+<status status="PASS" starttime="20210104 22:22:10.187" endtime="20210104 22:22:10.188"></status>
+</kw>
+<kw name="Create New Directory">
+<arguments>
+<arg>${FILE_DIR}</arg>
+</arguments>
+<kw name="Does Directory Exist" library="Autosphere.FileSystem">
+<doc>Returns True if the given directory exists, False if not.</doc>
+<arguments>
+<arg>${dir}</arg>
+</arguments>
+<assign>
+<var>${status}</var>
+</assign>
+<msg timestamp="20210104 22:22:10.194" level="INFO">${status} = True</msg>
+<status status="PASS" starttime="20210104 22:22:10.191" endtime="20210104 22:22:10.194"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>${status} == False</arg>
+<arg>Create Directory</arg>
+<arg>${dir}</arg>
+</arguments>
+<status status="PASS" starttime="20210104 22:22:10.194" endtime="20210104 22:22:10.195"></status>
+</kw>
+<status status="PASS" starttime="20210104 22:22:10.190" endtime="20210104 22:22:10.196"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>${emails_list}[0][Has-Attachments] == True</arg>
+<arg>Process Attachment In The Email</arg>
+<arg>${emails_list}[0]</arg>
+<arg>${FILE_DIR}</arg>
+<arg>ELSE</arg>
+<arg>Reply To Email</arg>
+<arg>${emails_list}[0]</arg>
+<arg>${SEND_EMAIL_SUBJECT}</arg>
+<arg>${SEND_EMAIL_BODY}</arg>
+</arguments>
+<kw name="Process Attachment In The Email">
+<arguments>
+<arg>${emails_list}[0]</arg>
+<arg>${FILE_DIR}</arg>
+</arguments>
+<kw name="Save Attachment" library="Autosphere.Email.ImapSmtp">
+<doc>Save mail attachment into local folder</doc>
+<arguments>
+<arg>${email}</arg>
+<arg>target_folder=${dir}</arg>
+<arg>overwrite=True</arg>
+</arguments>
+<msg timestamp="20210104 22:22:10.201" level="INFO">agents.csv application</msg>
+<status status="PASS" starttime="20210104 22:22:10.200" endtime="20210104 22:22:10.201"></status>
+</kw>
+<kw name="Is Directory Not Empty" library="Autosphere.FileSystem">
+<doc>Returns True if the given directory has any files or subdirectories.</doc>
+<arguments>
+<arg>${dir}</arg>
+</arguments>
+<assign>
+<var>${is_dir_not_empty}</var>
+</assign>
+<msg timestamp="20210104 22:22:10.204" level="INFO">${is_dir_not_empty} = True</msg>
+<status status="PASS" starttime="20210104 22:22:10.202" endtime="20210104 22:22:10.204"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>${is_dir_not_empty} == True</arg>
+<arg>Enter the CSV File Data In The Portal</arg>
+<arg>${dir}</arg>
+<arg>${email}</arg>
+<arg>ELSE</arg>
+<arg>Log</arg>
+<arg>Attachment Not Exist</arg>
+</arguments>
+<kw name="Enter the CSV File Data In The Portal">
+<arguments>
+<arg>${dir}</arg>
+<arg>${email}</arg>
+</arguments>
+<kw name="Get CSV File Path">
+<arguments>
+<arg>${dir}</arg>
+</arguments>
+<assign>
+<var>${file_path}</var>
+</assign>
+<kw name="List Files In Directory" library="Autosphere.FileSystem">
+<doc>Lists all the files in the given directory, relative to it.</doc>
+<arguments>
+<arg>${dir}</arg>
+</arguments>
+<assign>
+<var>${files}</var>
+</assign>
+<msg timestamp="20210104 22:22:10.207" level="INFO">${files} = [File(path='D:\\Irfan\\Projects\\Python\\python_projects\\assignments\\task1_emailsending_filedownloading.robot\\attachments\\agents.csv', name='agents.csv', size=122, mtime=1609780930.2005744)]</msg>
+<status status="PASS" starttime="20210104 22:22:10.206" endtime="20210104 22:22:10.207"></status>
+</kw>
+<kw name="Create Table" library="Autosphere.Tables">
+<doc>Create Table object from data.</doc>
+<arguments>
+<arg>${files}</arg>
+</arguments>
+<assign>
+<var>${files}</var>
+</assign>
+<msg timestamp="20210104 22:22:10.208" level="INFO">Created table: Table(columns=['path', 'name', 'size', 'mtime'], rows=1)</msg>
+<msg timestamp="20210104 22:22:10.209" level="INFO">${files} = Table(columns=['path', 'name', 'size', 'mtime'], rows=1)</msg>
+<status status="PASS" starttime="20210104 22:22:10.208" endtime="20210104 22:22:10.209"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${files}</arg>
+</arguments>
+<msg timestamp="20210104 22:22:10.210" level="INFO">Table(columns=['path', 'name', 'size', 'mtime'], rows=1)</msg>
+<status status="PASS" starttime="20210104 22:22:10.209" endtime="20210104 22:22:10.210"></status>
+</kw>
+<kw name="${file} IN [ @{files} ]" type="for">
+<kw name="${file} = {'path': 'D:\\Irfan\\Projects\\Python\\python_projects\\assignments\\task1_emailsending_filedownloading.robot\\attachments\\agents.csv', 'name': 'agents.csv', 'size': 122, 'mtime': 1609780930.2005744}" type="foritem">
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${file}[path]</arg>
+</arguments>
+<assign>
+<var>${dir}</var>
+</assign>
+<msg timestamp="20210104 22:22:10.211" level="INFO">${dir} = D:\Irfan\Projects\Python\python_projects\assignments\task1_emailsending_filedownloading.robot\attachments\agents.csv</msg>
+<status status="PASS" starttime="20210104 22:22:10.211" endtime="20210104 22:22:10.211"></status>
+</kw>
+<status status="PASS" starttime="20210104 22:22:10.211" endtime="20210104 22:22:10.211"></status>
+</kw>
+<status status="PASS" starttime="20210104 22:22:10.210" endtime="20210104 22:22:10.212"></status>
+</kw>
+<msg timestamp="20210104 22:22:10.212" level="INFO">${file_path} = D:\Irfan\Projects\Python\python_projects\assignments\task1_emailsending_filedownloading.robot\attachments\agents.csv</msg>
+<status status="PASS" starttime="20210104 22:22:10.205" endtime="20210104 22:22:10.212"></status>
+</kw>
+<kw name="Read Table From Csv" library="Autosphere.Tables">
+<doc>Read a CSV file as a table.</doc>
+<arguments>
+<arg>${file_path}</arg>
+</arguments>
+<assign>
+<var>${data}</var>
+</assign>
+<msg timestamp="20210104 22:22:10.218" level="INFO">${data} = Table(columns=['WA ID', 'Name'], rows=6)</msg>
+<status status="PASS" starttime="20210104 22:22:10.212" endtime="20210104 22:22:10.218"></status>
+</kw>
+<kw name="Create Table" library="Autosphere.Tables">
+<doc>Create Table object from data.</doc>
+<assign>
+<var>${newTbl}</var>
+</assign>
+<msg timestamp="20210104 22:22:10.219" level="INFO">Created table: Table(columns=[], rows=0)</msg>
+<msg timestamp="20210104 22:22:10.219" level="INFO">${newTbl} = Table(columns=[], rows=0)</msg>
+<status status="PASS" starttime="20210104 22:22:10.218" endtime="20210104 22:22:10.219"></status>
+</kw>
+<kw name="Add Table Column" library="Autosphere.Tables">
+<doc>Append a column to a table.</doc>
+<arguments>
+<arg>${data}</arg>
+<arg>status</arg>
+</arguments>
+<status status="PASS" starttime="20210104 22:22:10.219" endtime="20210104 22:22:10.220"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${data}</arg>
+</arguments>
+<msg timestamp="20210104 22:22:10.221" level="INFO">Table(columns=['WA ID', 'Name', 'status'], rows=6)</msg>
+<status status="PASS" starttime="20210104 22:22:10.220" endtime="20210104 22:22:10.221"></status>
+</kw>
+<kw name="${row} IN [ @{data} ]" type="for">
+<kw name="${row} = {'WA ID': 'WA5211', 'Name': 'Muhammad Shoaib', 'status': None}" type="foritem">
+<kw name="Enter Data In The Form">
+<arguments>
+<arg>${row}</arg>
+</arguments>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${person}[WA ID]</arg>
+</arguments>
+<assign>
+<var>${WA_ID}</var>
+</assign>
+<msg timestamp="20210104 22:22:10.223" level="INFO">${WA_ID} = WA5211</msg>
+<status status="PASS" starttime="20210104 22:22:10.222" endtime="20210104 22:22:10.223"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${person}[Name]</arg>
+</arguments>
+<assign>
+<var>${Name}</var>
+</assign>
+<msg timestamp="20210104 22:22:10.223" level="INFO">${Name} = Muhammad Shoaib</msg>
+<status status="PASS" starttime="20210104 22:22:10.223" endtime="20210104 22:22:10.223"></status>
+</kw>
+<kw name="Open Add New User Form">
+<kw name="Open Available Browser" library="Autosphere.Browser">
+<doc>Opens the first available browser in the system in preferred order, or the
+given browser (``browser_selection``).</doc>
+<arguments>
+<arg>${ADD_USER_FORM_URL}</arg>
+</arguments>
+<msg timestamp="20210104 22:22:10.230" level="INFO">Creating an instance of the Chrome WebDriver.</msg>
+<msg timestamp="20210104 22:22:13.388" level="INFO">Created Chrome browser with arguments: --disable-web-security --allow-running-insecure-content --no-sandbox</msg>
+<msg timestamp="20210104 22:22:13.389" level="INFO" html="yes">&lt;p&gt;Attempted combinations:&lt;/p&gt;&lt;div class="doc"&gt;&lt;table&gt;&lt;tr&gt;&lt;th&gt;Browser&lt;/th&gt;&lt;th&gt;Headless&lt;/th&gt;&lt;th&gt;Download&lt;/th&gt;&lt;th&gt;Error&lt;/th&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Chrome&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;</msg>
+<msg timestamp="20210104 22:22:13.389" level="INFO">Opening url 'http://6666:Pak123@63.141.240.125/'</msg>
+<status status="PASS" starttime="20210104 22:22:10.224" endtime="20210104 22:22:14.480"></status>
+</kw>
+<kw name="Wait Until Page Contains" library="Autosphere.Browser">
+<doc>Waits until ``text`` appears on the current page.</doc>
+<arguments>
+<arg>Administration</arg>
+</arguments>
+<status status="PASS" starttime="20210104 22:22:14.480" endtime="20210104 22:22:16.424"></status>
+</kw>
+<kw name="Click Link" library="Autosphere.Browser">
+<doc>Clicks a link identified by ``locator``.</doc>
+<arguments>
+<arg>Administration</arg>
+</arguments>
+<msg timestamp="20210104 22:22:16.425" level="INFO">Clicking link 'Administration'.</msg>
+<status status="PASS" starttime="20210104 22:22:16.424" endtime="20210104 22:22:20.531"></status>
+</kw>
+<kw name="Click Element" library="Autosphere.Browser">
+<doc>Click the element identified by ``locator``.</doc>
+<arguments>
+<arg>xpath: //a[@href="/vicidial/admin.php?ADD=0A"]/font[@style="font-family:HELVETICA;font-size:12;color:WHITE"]</arg>
+</arguments>
+<msg timestamp="20210104 22:22:20.531" level="INFO">Clicking element 'xpath: //a[@href="/vicidial/admin.php?ADD=0A"]/font[@style="font-family:HELVETICA;font-size:12;color:WHITE"]'.</msg>
+<status status="PASS" starttime="20210104 22:22:20.531" endtime="20210104 22:22:22.090"></status>
+</kw>
+<kw name="Click Element" library="Autosphere.Browser">
+<doc>Click the element identified by ``locator``.</doc>
+<arguments>
+<arg>xpath: //a[@href="/vicidial/admin.php?ADD=1"]/font[@style="font-family:HELVETICA;font-size:11;color:BLACK"]</arg>
+</arguments>
+<msg timestamp="20210104 22:22:22.091" level="INFO">Clicking element 'xpath: //a[@href="/vicidial/admin.php?ADD=1"]/font[@style="font-family:HELVETICA;font-size:11;color:BLACK"]'.</msg>
+<status status="PASS" starttime="20210104 22:22:22.091" endtime="20210104 22:22:23.263"></status>
+</kw>
+<status status="PASS" starttime="20210104 22:22:10.224" endtime="20210104 22:22:23.263"></status>
+</kw>
+<kw name="Click Link" library="Autosphere.Browser">
+<doc>Clicks a link identified by ``locator``.</doc>
+<arguments>
+<arg>xpath: //a[@href="/vicidial/admin.php?ADD=0A"]</arg>
+</arguments>
+<msg timestamp="20210104 22:22:23.264" level="INFO">Clicking link 'xpath: //a[@href="/vicidial/admin.php?ADD=0A"]'.</msg>
+<status status="PASS" starttime="20210104 22:22:23.264" endtime="20210104 22:22:24.447"></status>
+</kw>
+<kw name="Click Link" library="Autosphere.Browser">
+<doc>Clicks a link identified by ``locator``.</doc>
+<arguments>
+<arg>xpath: //a[@href="/vicidial/admin.php?ADD=1"]</arg>
+</arguments>
+<msg timestamp="20210104 22:22:24.448" level="INFO">Clicking link 'xpath: //a[@href="/vicidial/admin.php?ADD=1"]'.</msg>
+<status status="PASS" starttime="20210104 22:22:24.448" endtime="20210104 22:22:26.288"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>user</arg>
+<arg>${WA_ID}</arg>
+</arguments>
+<msg timestamp="20210104 22:22:26.290" level="INFO">Typing text 'WA5211' into text field 'user'.</msg>
+<status status="PASS" starttime="20210104 22:22:26.289" endtime="20210104 22:22:26.384"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>pass</arg>
+<arg>${const.user_pass}</arg>
+</arguments>
+<msg timestamp="20210104 22:22:26.384" level="INFO">Typing text '6666' into text field 'pass'.</msg>
+<status status="PASS" starttime="20210104 22:22:26.384" endtime="20210104 22:22:26.467"></status>
+</kw>
+<kw name="Click Element" library="Autosphere.Browser">
+<doc>Click the element identified by ``locator``.</doc>
+<arguments>
+<arg>full_name</arg>
+</arguments>
+<msg timestamp="20210104 22:22:26.467" level="INFO">Clicking element 'full_name'.</msg>
+<status status="PASS" starttime="20210104 22:22:26.467" endtime="20210104 22:22:26.517"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>full_name</arg>
+<arg>${Name}</arg>
+</arguments>
+<msg timestamp="20210104 22:22:26.517" level="INFO">Typing text 'Muhammad Shoaib' into text field 'full_name'.</msg>
+<status status="PASS" starttime="20210104 22:22:26.517" endtime="20210104 22:22:26.579"></status>
+</kw>
+<kw name="Select From List By Label" library="Autosphere.Browser">
+<doc>Selects options from selection list ``locator`` by ``labels``.</doc>
+<arguments>
+<arg>user_level</arg>
+<arg>3</arg>
+</arguments>
+<msg timestamp="20210104 22:22:26.580" level="INFO">Selecting options from selection list 'user_level' by label 3.</msg>
+<status status="PASS" starttime="20210104 22:22:26.580" endtime="20210104 22:22:26.648"></status>
+</kw>
+<kw name="Select From List By Value" library="Autosphere.Browser">
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<arguments>
+<arg>user_group</arg>
+<arg>outboundgroup</arg>
+</arguments>
+<msg timestamp="20210104 22:22:26.649" level="INFO">Selecting options from selection list 'user_group' by value outboundgroup.</msg>
+<status status="PASS" starttime="20210104 22:22:26.649" endtime="20210104 22:22:26.715"></status>
+</kw>
+<kw name="Click Element" library="Autosphere.Browser">
+<doc>Click the element identified by ``locator``.</doc>
+<arguments>
+<arg>phone_login</arg>
+</arguments>
+<msg timestamp="20210104 22:22:26.716" level="INFO">Clicking element 'phone_login'.</msg>
+<status status="PASS" starttime="20210104 22:22:26.716" endtime="20210104 22:22:26.763"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>phone_login</arg>
+<arg>${WA_ID}</arg>
+</arguments>
+<msg timestamp="20210104 22:22:26.764" level="INFO">Typing text 'WA5211' into text field 'phone_login'.</msg>
+<status status="PASS" starttime="20210104 22:22:26.764" endtime="20210104 22:22:26.829"></status>
+</kw>
+<kw name="Click Element" library="Autosphere.Browser">
+<doc>Click the element identified by ``locator``.</doc>
+<arguments>
+<arg>phone_pass</arg>
+</arguments>
+<msg timestamp="20210104 22:22:26.829" level="INFO">Clicking element 'phone_pass'.</msg>
+<status status="PASS" starttime="20210104 22:22:26.829" endtime="20210104 22:22:26.883"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>phone_pass</arg>
+<arg>${const.phone_pass}</arg>
+</arguments>
+<msg timestamp="20210104 22:22:26.884" level="INFO">Typing text 'sms003' into text field 'phone_pass'.</msg>
+<status status="PASS" starttime="20210104 22:22:26.883" endtime="20210104 22:22:26.945"></status>
+</kw>
+<kw name="Click Button" library="Autosphere.Browser">
+<doc>Clicks the button identified by ``locator``.</doc>
+<arguments>
+<arg>SUBMIT</arg>
+</arguments>
+<msg timestamp="20210104 22:22:26.945" level="INFO">Clicking button 'SUBMIT'.</msg>
+<status status="PASS" starttime="20210104 22:22:26.945" endtime="20210104 22:22:28.093"></status>
+</kw>
+<kw name="Click Link" library="Autosphere.Browser">
+<doc>Clicks a link identified by ``locator``.</doc>
+<arguments>
+<arg>xpath: //a[@href="/vicidial/admin.php?ADD=999998"]</arg>
+</arguments>
+<msg timestamp="20210104 22:22:28.094" level="INFO">Clicking link 'xpath: //a[@href="/vicidial/admin.php?ADD=999998"]'.</msg>
+<status status="PASS" starttime="20210104 22:22:28.094" endtime="20210104 22:22:30.286"></status>
+</kw>
+<kw name="Click Link" library="Autosphere.Browser">
+<doc>Clicks a link identified by ``locator``.</doc>
+<arguments>
+<arg>xpath: //a[@href="/vicidial/admin.php?ADD=10000000000"]</arg>
+</arguments>
+<msg timestamp="20210104 22:22:30.287" level="INFO">Clicking link 'xpath: //a[@href="/vicidial/admin.php?ADD=10000000000"]'.</msg>
+<status status="PASS" starttime="20210104 22:22:30.286" endtime="20210104 22:22:31.465"></status>
+</kw>
+<kw name="Click Link" library="Autosphere.Browser">
+<doc>Clicks a link identified by ``locator``.</doc>
+<arguments>
+<arg>xpath: //a[@href="/vicidial/admin.php?ADD=11111111111"]</arg>
+</arguments>
+<msg timestamp="20210104 22:22:31.466" level="INFO">Clicking link 'xpath: //a[@href="/vicidial/admin.php?ADD=11111111111"]'.</msg>
+<status status="PASS" starttime="20210104 22:22:31.465" endtime="20210104 22:22:32.896"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>extension</arg>
+<arg>${WA_ID}</arg>
+</arguments>
+<msg timestamp="20210104 22:22:32.896" level="INFO">Typing text 'WA5211' into text field 'extension'.</msg>
+<status status="PASS" starttime="20210104 22:22:32.896" endtime="20210104 22:22:33.002"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>dialplan_number</arg>
+<arg>${WA_ID}</arg>
+</arguments>
+<msg timestamp="20210104 22:22:33.003" level="INFO">Typing text 'WA5211' into text field 'dialplan_number'.</msg>
+<status status="PASS" starttime="20210104 22:22:33.002" endtime="20210104 22:22:33.084"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>voicemail_id</arg>
+<arg>${WA_ID}</arg>
+</arguments>
+<msg timestamp="20210104 22:22:33.085" level="INFO">Typing text 'WA5211' into text field 'voicemail_id'.</msg>
+<status status="PASS" starttime="20210104 22:22:33.084" endtime="20210104 22:22:33.164"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>outbound_cid</arg>
+<arg>${const.outbound_cid}</arg>
+</arguments>
+<msg timestamp="20210104 22:22:33.165" level="INFO">Typing text '9878' into text field 'outbound_cid'.</msg>
+<status status="PASS" starttime="20210104 22:22:33.164" endtime="20210104 22:22:33.243"></status>
+</kw>
+<kw name="Select From List By Value" library="Autosphere.Browser">
+<doc>Selects options from selection list ``locator`` by ``values``.</doc>
+<arguments>
+<arg>user_group</arg>
+<arg>outboundgroup</arg>
+</arguments>
+<msg timestamp="20210104 22:22:33.243" level="INFO">Selecting options from selection list 'user_group' by value outboundgroup.</msg>
+<status status="PASS" starttime="20210104 22:22:33.243" endtime="20210104 22:22:33.318"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>login</arg>
+<arg>${WA_ID}</arg>
+</arguments>
+<msg timestamp="20210104 22:22:33.318" level="INFO">Typing text 'WA5211' into text field 'login'.</msg>
+<status status="PASS" starttime="20210104 22:22:33.318" endtime="20210104 22:22:33.401"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>phone_type</arg>
+<arg>${WA_ID}</arg>
+</arguments>
+<msg timestamp="20210104 22:22:33.401" level="INFO">Typing text 'WA5211' into text field 'phone_type'.</msg>
+<status status="PASS" starttime="20210104 22:22:33.401" endtime="20210104 22:22:33.483"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>fullname</arg>
+<arg>${WA_ID}</arg>
+</arguments>
+<msg timestamp="20210104 22:22:33.483" level="INFO">Typing text 'WA5211' into text field 'fullname'.</msg>
+<status status="PASS" starttime="20210104 22:22:33.483" endtime="20210104 22:22:33.563"></status>
+</kw>
+<kw name="Click Button" library="Autosphere.Browser">
+<doc>Clicks the button identified by ``locator``.</doc>
+<arguments>
+<arg>SUBMIT</arg>
+</arguments>
+<msg timestamp="20210104 22:22:33.564" level="INFO">Clicking button 'SUBMIT'.</msg>
+<status status="PASS" starttime="20210104 22:22:33.564" endtime="20210104 22:22:34.660"></status>
+</kw>
+<kw name="Wait Until Page Contains" library="Autosphere.Browser">
+<doc>Waits until ``text`` appears on the current page.</doc>
+<arguments>
+<arg>HOME</arg>
+</arguments>
+<status status="PASS" starttime="20210104 22:22:34.661" endtime="20210104 22:22:34.677"></status>
+</kw>
+<kw name="Click Button" library="Autosphere.Browser">
+<doc>Clicks the button identified by ``locator``.</doc>
+<arguments>
+<arg>SUBMIT</arg>
+</arguments>
+<msg timestamp="20210104 22:22:34.677" level="INFO">Clicking button 'SUBMIT'.</msg>
+<status status="PASS" starttime="20210104 22:22:34.677" endtime="20210104 22:22:35.957"></status>
+</kw>
+<kw name="Click Link" library="Autosphere.Browser">
+<doc>Clicks a link identified by ``locator``.</doc>
+<arguments>
+<arg>xpath: //a[@href="/vicidial/admin.php?force_logout=1"]</arg>
+</arguments>
+<msg timestamp="20210104 22:22:35.958" level="INFO">Clicking link 'xpath: //a[@href="/vicidial/admin.php?force_logout=1"]'.</msg>
+<status status="PASS" starttime="20210104 22:22:35.957" endtime="20210104 22:22:36.336"></status>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<doc>Pauses the test executed for the given time.</doc>
+<arguments>
+<arg>3s</arg>
+</arguments>
+<msg timestamp="20210104 22:22:39.336" level="INFO">Slept 3 seconds</msg>
+<status status="PASS" starttime="20210104 22:22:36.336" endtime="20210104 22:22:39.336"></status>
+</kw>
+<kw name="Close Browser" library="Autosphere.Browser">
+<doc>Closes the current browser.</doc>
+<status status="PASS" starttime="20210104 22:22:39.336" endtime="20210104 22:22:41.465"></status>
+</kw>
+<status status="PASS" starttime="20210104 22:22:10.221" endtime="20210104 22:22:41.465"></status>
+</kw>
+<kw name="Reply To Email">
+<arguments>
+<arg>${email}</arg>
+<arg>${email}[Subject]</arg>
+<arg>${const.reply_message}</arg>
+</arguments>
+<kw name="$from=">
+<arguments>
+<arg>Fetch From Right</arg>
+<arg>${string}"${recieved_email}[From]"</arg>
+<arg>&lt;</arg>
+</arguments>
+<msg timestamp="20210104 22:22:41.472" level="FAIL">No keyword with name '$from=' found.</msg>
+<status status="FAIL" starttime="20210104 22:22:41.472" endtime="20210104 22:22:41.472"></status>
+</kw>
+<status status="FAIL" starttime="20210104 22:22:41.465" endtime="20210104 22:22:41.472"></status>
+</kw>
+<status status="FAIL" starttime="20210104 22:22:10.221" endtime="20210104 22:22:41.472"></status>
+</kw>
+<status status="FAIL" starttime="20210104 22:22:10.221" endtime="20210104 22:22:41.472"></status>
+</kw>
+<status status="FAIL" starttime="20210104 22:22:10.205" endtime="20210104 22:22:41.472"></status>
+</kw>
+<status status="FAIL" starttime="20210104 22:22:10.204" endtime="20210104 22:22:41.473"></status>
+</kw>
+<status status="FAIL" starttime="20210104 22:22:10.199" endtime="20210104 22:22:41.473"></status>
+</kw>
+<status status="FAIL" starttime="20210104 22:22:10.198" endtime="20210104 22:22:41.473"></status>
+</kw>
+<status status="FAIL" starttime="20210104 22:22:01.893" endtime="20210104 22:22:41.474" critical="yes">No keyword with name '$from=' found.</status>
+</test>
+<status status="FAIL" starttime="20210104 22:22:01.334" endtime="20210104 22:22:42.520"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1">Critical Tasks</stat>
+<stat pass="0" fail="1">All Tasks</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="0" fail="1" id="s1" name="Task">Task</stat>
+</suite>
+</statistics>
+<errors>
+<msg timestamp="20210104 22:22:01.363" level="ERROR">Error in file 'D:\Irfan\Projects\Python\python_projects\assignments\task1_emailsending_filedownloading.robot\task.robot' on line 2: Importing test library 'Autosphere.BuiltIn' failed: Module 'Autosphere' does not contain 'BuiltIn'.</msg>
+</errors>
+</robot>

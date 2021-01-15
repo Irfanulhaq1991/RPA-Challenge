@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.2.2 (Python 3.7.4 on win32)" generated="20210104 13:09:11.079" rpa="true">
+<suite id="s1" name="Task" source="D:\Irfan\Projects\Python\python_projects\assignments\task1_emailsending_filedownloading.robot\task.robot">
+<test id="s1-t1" name="Send Email">
+<kw name="Login With Email And Password">
+<arguments>
+<arg>${EMAIL}</arg>
+<arg>${PASSWORD}</arg>
+</arguments>
+<kw name="Authorize" library="Autosphere.Email.ImapSmtp">
+<doc>Authorize user to SMTP and IMAP servers.</doc>
+<arguments>
+<arg>account=${EMAIL}</arg>
+<arg>password=${PASSWORD}</arg>
+</arguments>
+<msg timestamp="20210104 13:09:11.661" level="INFO">protecting keyword: autosphere.email.imapsmtp.authorize</msg>
+<msg timestamp="20210104 13:09:15.877" level="INFO">Log level changed from NONE to INFO.</msg>
+<status status="PASS" starttime="20210104 13:09:11.660" endtime="20210104 13:09:15.877"></status>
+</kw>
+<status status="PASS" starttime="20210104 13:09:11.660" endtime="20210104 13:09:15.877"></status>
+</kw>
+<kw name="Send Email With Attachment">
+<arguments>
+<arg>${EMAIL}</arg>
+<arg>${RECEIVED_EMAIL_SUBJECT_FILTER}</arg>
+<arg>${SEND_EMAIL_BODY}</arg>
+<arg>${TEST_FILE}</arg>
+</arguments>
+<kw name="Send Message" library="Autosphere.Email.ImapSmtp">
+<doc>Send SMTP email</doc>
+<arguments>
+<arg>sender=${const.email}</arg>
+<arg>recipients=${recipient}</arg>
+<arg>subject=${subject}</arg>
+<arg>body=${body}</arg>
+<arg>attachments=${attachment}</arg>
+</arguments>
+<status status="PASS" starttime="20210104 13:09:15.878" endtime="20210104 13:09:17.290"></status>
+</kw>
+<status status="PASS" starttime="20210104 13:09:15.878" endtime="20210104 13:09:17.291"></status>
+</kw>
+<status status="PASS" starttime="20210104 13:09:11.659" endtime="20210104 13:09:17.292" critical="yes"></status>
+</test>
+<test id="s1-t2" name="Download Attachement, Fetch Data From The Attachment, And Fill The Form With Feched Data">
+<kw name="Login With Email And Password">
+<arguments>
+<arg>${EMAIL}</arg>
+<arg>${PASSWORD}</arg>
+</arguments>
+<kw name="Authorize" library="Autosphere.Email.ImapSmtp">
+<doc>Authorize user to SMTP and IMAP servers.</doc>
+<arguments>
+<arg>account=${EMAIL}</arg>
+<arg>password=${PASSWORD}</arg>
+</arguments>
+<msg timestamp="20210104 13:09:18.480" level="INFO">protecting keyword: autosphere.email.imapsmtp.authorize</msg>
+<msg timestamp="20210104 13:09:23.600" level="INFO">Log level changed from NONE to INFO.</msg>
+<status status="PASS" starttime="20210104 13:09:18.480" endtime="20210104 13:09:23.599"></status>
+</kw>
+<status status="PASS" starttime="20210104 13:09:18.479" endtime="20210104 13:09:23.601"></status>
+</kw>
+<kw name="List Email With Subject">
+<arguments>
+<arg>${RECEIVED_EMAIL_SUBJECT_FILTER}</arg>
+</arguments>
+<assign>
+<var>@{emails_list}</var>
+</assign>
+<kw name="Create List" library="BuiltIn">
+<doc>Returns a list containing given items.</doc>
+<assign>
+<var>${email_list}</var>
+</assign>
+<msg timestamp="20210104 13:09:23.604" level="INFO">${email_list} = []</msg>
+<status status="PASS" starttime="20210104 13:09:23.604" endtime="20210104 13:09:23.604"></status>
+</kw>
+<kw name="List Messages" library="Autosphere.Email.ImapSmtp">
+<doc>Return list of messages matching criterion.</doc>
+<arguments>
+<arg>SUBJECT "${subject}"</arg>
+</arguments>
+<assign>
+<var>@{emails}</var>
+</assign>
+<msg timestamp="20210104 13:09:23.605" level="INFO">List messages: SUBJECT "Add agent to the portal"</msg>
+<msg timestamp="20210104 13:09:44.731" level="INFO">@{emails} = [ {'Mail-Id': b'1', 'Message': &lt;email.message.Message object at 0x000001C43BABABC8&gt;, 'Return-Path': &lt;email.header.Header object at 0x000001C43A07D088&gt;, 'Received': &lt;email.header.Header object at 0x000...</msg>
+<status status="PASS" starttime="20210104 13:09:23.605" endtime="20210104 13:09:44.731"></status>
+</kw>
+<kw name="${email} IN [ @{emails} ]" type="for">
+<kw name="${email} = {'Mail-Id': b'1', 'Message': &lt;email.message.Message object at 0x000001C43BABABC8&gt;, 'Return-Path': &lt;email.header.Header object at 0x000001C43A07D088&gt;, 'Received': &lt;email.header.Header object at 0x00000..." type="foritem">
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${email_list}</arg>
+<arg>${email}</arg>
+</arguments>
+<status status="PASS" starttime="20210104 13:09:44.733" endtime="20210104 13:09:44.733"></status>
+</kw>
+<kw name="Exit For Loop" library="BuiltIn">
+<doc>Stops executing the enclosing for loop.</doc>
+<msg timestamp="20210104 13:09:44.734" level="INFO">Exiting for loop altogether.</msg>
+<status status="PASS" starttime="20210104 13:09:44.734" endtime="20210104 13:09:44.734"></status>
+</kw>
+<status status="PASS" starttime="20210104 13:09:44.732" endtime="20210104 13:09:44.735"></status>
+</kw>
+<status status="PASS" starttime="20210104 13:09:44.732" endtime="20210104 13:09:44.735"></status>
+</kw>
+<msg timestamp="20210104 13:09:44.736" level="INFO">@{emails_list} = [ {'Mail-Id': b'1', 'Message': &lt;email.message.Message object at 0x000001C43BABABC8&gt;, 'Return-Path': &lt;email.header.Header object at 0x000001C43A07D088&gt;, 'Received': &lt;email.header.Header object at 0x000...</msg>
+<status status="PASS" starttime="20210104 13:09:23.602" endtime="20210104 13:09:44.736"></status>
+</kw>
+<kw name="Get Length" library="BuiltIn">
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<arguments>
+<arg>${emails_list}</arg>
+</arguments>
+<assign>
+<var>${emails_count}</var>
+</assign>
+<msg timestamp="20210104 13:09:44.738" level="INFO">Length is 1</msg>
+<msg timestamp="20210104 13:09:44.738" level="INFO">${emails_count} = 1</msg>
+<status status="PASS" starttime="20210104 13:09:44.737" endtime="20210104 13:09:44.738"></status>
+</kw>
+<kw name="Create New Directory">
+<arguments>
+<arg>${FILE_DIR}</arg>
+</arguments>
+<kw name="Does Directory Exist" library="Autosphere.FileSystem">
+<doc>Returns True if the given directory exists, False if not.</doc>
+<arguments>
+<arg>${dir}</arg>
+</arguments>
+<assign>
+<var>${status}</var>
+</assign>
+<msg timestamp="20210104 13:09:44.742" level="INFO">${status} = True</msg>
+<status status="PASS" starttime="20210104 13:09:44.740" endtime="20210104 13:09:44.743"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>${status} == False</arg>
+<arg>Create Directory</arg>
+<arg>${dir}</arg>
+</arguments>
+<status status="PASS" starttime="20210104 13:09:44.743" endtime="20210104 13:09:44.744"></status>
+</kw>
+<status status="PASS" starttime="20210104 13:09:44.739" endtime="20210104 13:09:44.744"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>${emails_list}[0][Has-Attachments] == True</arg>
+<arg>Process Attachment In The Email</arg>
+<arg>${emails_list}[0]</arg>
+<arg>${FILE_DIR}</arg>
+<arg>ELSE</arg>
+<arg>Reply To Email</arg>
+<arg>${emails_list}[0]</arg>
+<arg>${SEND_EMAIL_SUBJECT}</arg>
+<arg>${SEND_EMAIL_BODY}</arg>
+</arguments>
+<kw name="Process Attachment In The Email">
+<arguments>
+<arg>${emails_list}[0]</arg>
+<arg>${FILE_DIR}</arg>
+</arguments>
+<kw name="Save Attachment" library="Autosphere.Email.ImapSmtp">
+<doc>Save mail attachment into local folder</doc>
+<arguments>
+<arg>${email}</arg>
+<arg>target_folder=${dir}</arg>
+<arg>overwrite=True</arg>
+</arguments>
+<msg timestamp="20210104 13:09:44.750" level="INFO">agents.csv application</msg>
+<status status="PASS" starttime="20210104 13:09:44.748" endtime="20210104 13:09:44.751"></status>
+</kw>
+<kw name="Is Directory Not Empty" library="Autosphere.FileSystem">
+<doc>Returns True if the given directory has any files or subdirectories.</doc>
+<arguments>
+<arg>${dir}</arg>
+</arguments>
+<assign>
+<var>${is_dir_not_empty}</var>
+</assign>
+<msg timestamp="20210104 13:09:44.753" level="INFO">${is_dir_not_empty} = True</msg>
+<status status="PASS" starttime="20210104 13:09:44.751" endtime="20210104 13:09:44.753"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>${is_dir_not_empty} == True</arg>
+<arg>Enter the CSV File Data In The Portal</arg>
+<arg>${dir}</arg>
+<arg>${email}</arg>
+<arg>ELSE</arg>
+<arg>Log</arg>
+<arg>Attachment Not Exist</arg>
+</arguments>
+<kw name="Enter the CSV File Data In The Portal">
+<arguments>
+<arg>${dir}</arg>
+<arg>${email}</arg>
+</arguments>
+<kw name="Get CSV File Path">
+<arguments>
+<arg>${dir}</arg>
+</arguments>
+<assign>
+<var>${file_path}</var>
+</assign>
+<kw name="List Files In Directory" library="Autosphere.FileSystem">
+<doc>Lists all the files in the given directory, relative to it.</doc>
+<arguments>
+<arg>${dir}</arg>
+</arguments>
+<assign>
+<var>${files}</var>
+</assign>
+<msg timestamp="20210104 13:09:44.757" level="INFO">${files} = [File(path='D:\\Irfan\\Projects\\Python\\python_projects\\assignments\\task1_emailsending_filedownloading.robot\\attachments\\agents.csv', name='agents.csv', size=135, mtime=1609747784.751273)]</msg>
+<status status="PASS" starttime="20210104 13:09:44.756" endtime="20210104 13:09:44.757"></status>
+</kw>
+<kw name="Create Table" library="Autosphere.Tables">
+<doc>Create Table object from data.</doc>
+<arguments>
+<arg>${files}</arg>
+</arguments>
+<assign>
+<var>${files}</var>
+</assign>
+<msg timestamp="20210104 13:09:44.758" level="INFO">Created table: Table(columns=['path', 'name', 'size', 'mtime'], rows=1)</msg>
+<msg timestamp="20210104 13:09:44.758" level="INFO">${files} = Table(columns=['path', 'name', 'size', 'mtime'], rows=1)</msg>
+<status status="PASS" starttime="20210104 13:09:44.757" endtime="20210104 13:09:44.758"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${files}</arg>
+</arguments>
+<msg timestamp="20210104 13:09:44.759" level="INFO">Table(columns=['path', 'name', 'size', 'mtime'], rows=1)</msg>
+<status status="PASS" starttime="20210104 13:09:44.758" endtime="20210104 13:09:44.759"></status>
+</kw>
+<kw name="${file} IN [ @{files} ]" type="for">
+<kw name="${file} = {'path': 'D:\\Irfan\\Projects\\Python\\python_projects\\assignments\\task1_emailsending_filedownloading.robot\\attachments\\agents.csv', 'name': 'agents.csv', 'size': 135, 'mtime': 1609747784.751273}" type="foritem">
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${file}[path]</arg>
+</arguments>
+<assign>
+<var>${dir}</var>
+</assign>
+<msg timestamp="20210104 13:09:44.760" level="INFO">${dir} = D:\Irfan\Projects\Python\python_projects\assignments\task1_emailsending_filedownloading.robot\attachments\agents.csv</msg>
+<status status="PASS" starttime="20210104 13:09:44.760" endtime="20210104 13:09:44.760"></status>
+</kw>
+<status status="PASS" starttime="20210104 13:09:44.760" endtime="20210104 13:09:44.760"></status>
+</kw>
+<status status="PASS" starttime="20210104 13:09:44.759" endtime="20210104 13:09:44.760"></status>
+</kw>
+<msg timestamp="20210104 13:09:44.761" level="INFO">${file_path} = D:\Irfan\Projects\Python\python_projects\assignments\task1_emailsending_filedownloading.robot\attachments\agents.csv</msg>
+<status status="PASS" starttime="20210104 13:09:44.755" endtime="20210104 13:09:44.761"></status>
+</kw>
+<kw name="Read Table From Csv" library="Autosphere.Tables">
+<doc>Read a CSV file as a table.</doc>
+<arguments>
+<arg>${file_path}</arg>
+</arguments>
+<assign>
+<var>${data}</var>
+</assign>
+<msg timestamp="20210104 13:09:44.768" level="INFO">${data} = Table(columns=[0, 1], rows=7)</msg>
+<status status="PASS" starttime="20210104 13:09:44.761" endtime="20210104 13:09:44.768"></status>
+</kw>
+<kw name="Add Table Column" library="Autosphere.Tables">
+<doc>Append a column to a table.</doc>
+<arguments>
+<arg>${data}</arg>
+<arg>${2}</arg>
+</arguments>
+<status status="PASS" starttime="20210104 13:09:44.768" endtime="20210104 13:09:44.769"></status>
+</kw>
+<kw name="Pop Table Row" library="Autosphere.Tables">
+<doc>Remove row from table and return it.</doc>
+<arguments>
+<arg>${data}</arg>
+</arguments>
+<status status="PASS" starttime="20210104 13:09:44.769" endtime="20210104 13:09:44.770"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${data}</arg>
+</arguments>
+<msg timestamp="20210104 13:09:44.770" level="INFO">Table(columns=[0, 1, 2], rows=6)</msg>
+<status status="PASS" starttime="20210104 13:09:44.770" endtime="20210104 13:09:44.771"></status>
+</kw>
+<kw name="${row} IN [ @{data} ]" type="for">
+<kw name="${row} = {0: 'WA5211011', 1: 'Muhammad Shoaib', 2: None}" type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${row}[${1}]</arg>
+</arguments>
+<msg timestamp="20210104 13:09:44.772" level="INFO">Muhammad Shoaib</msg>
+<status status="PASS" starttime="20210104 13:09:44.771" endtime="20210104 13:09:44.772"></status>
+</kw>
+<status status="PASS" starttime="20210104 13:09:44.771" endtime="20210104 13:09:44.772"></status>
+</kw>
+<kw name="${row} = {0: 'WA521202', 1: 'Mamoon Hamid', 2: None}" type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${row}[${1}]</arg>
+</arguments>
+<msg timestamp="20210104 13:09:44.773" level="INFO">Mamoon Hamid</msg>
+<status status="PASS" starttime="20210104 13:09:44.772" endtime="20210104 13:09:44.773"></status>
+</kw>
+<status status="PASS" starttime="20210104 13:09:44.772" endtime="20210104 13:09:44.773"></status>
+</kw>
+<kw name="${row} = {0: 'WA521302', 1: 'Muhammad Ali', 2: None}" type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${row}[${1}]</arg>
+</arguments>
+<msg timestamp="20210104 13:09:44.774" level="INFO">Muhammad Ali</msg>
+<status status="PASS" starttime="20210104 13:09:44.773" endtime="20210104 13:09:44.774"></status>
+</kw>
+<status status="PASS" starttime="20210104 13:09:44.773" endtime="20210104 13:09:44.774"></status>
+</kw>
+<kw name="${row} = {0: 'WA521402', 1: 'Danish', 2: None}" type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${row}[${1}]</arg>
+</arguments>
+<msg timestamp="20210104 13:09:44.775" level="INFO">Danish</msg>
+<status status="PASS" starttime="20210104 13:09:44.774" endtime="20210104 13:09:44.775"></status>
+</kw>
+<status status="PASS" starttime="20210104 13:09:44.774" endtime="20210104 13:09:44.775"></status>
+</kw>
+<kw name="${row} = {0: 'WA521502', 1: 'Hamza', 2: None}" type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${row}[${1}]</arg>
+</arguments>
+<msg timestamp="20210104 13:09:44.776" level="INFO">Hamza</msg>
+<status status="PASS" starttime="20210104 13:09:44.776" endtime="20210104 13:09:44.776"></status>
+</kw>
+<status status="PASS" starttime="20210104 13:09:44.775" endtime="20210104 13:09:44.776"></status>
+</kw>
+<kw name="${row} = {0: 'WA521602', 1: 'Muneeb', 2: None}" type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${row}[${1}]</arg>
+</arguments>
+<msg timestamp="20210104 13:09:44.777" level="INFO">Muneeb</msg>
+<status status="PASS" starttime="20210104 13:09:44.777" endtime="20210104 13:09:44.777"></status>
+</kw>
+<status status="PASS" starttime="20210104 13:09:44.776" endtime="20210104 13:09:44.777"></status>
+</kw>
+<status status="PASS" starttime="20210104 13:09:44.771" endtime="20210104 13:09:44.777"></status>
+</kw>
+<status status="PASS" starttime="20210104 13:09:44.754" endtime="20210104 13:09:44.778"></status>
+</kw>
+<status status="PASS" starttime="20210104 13:09:44.754" endtime="20210104 13:09:44.778"></status>
+</kw>
+<status status="PASS" starttime="20210104 13:09:44.747" endtime="20210104 13:09:44.778"></status>
+</kw>
+<status status="PASS" starttime="20210104 13:09:44.746" endtime="20210104 13:09:44.778"></status>
+</kw>
+<status status="PASS" starttime="20210104 13:09:18.478" endtime="20210104 13:09:44.779" critical="yes"></status>
+</test>
+<status status="PASS" starttime="20210104 13:09:11.081" endtime="20210104 13:09:46.116"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="2" fail="0">Critical Tasks</stat>
+<stat pass="2" fail="0">All Tasks</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="2" fail="0" id="s1" name="Task">Task</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

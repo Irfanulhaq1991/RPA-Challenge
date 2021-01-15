@@ -1,0 +1,880 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.2.2 (Python 3.7.4 on win32)" generated="20210104 22:48:32.084" rpa="true">
+<suite id="s1" name="Form Filling Challenge" source="D:\Irfan\Projects\Python\python_projects\assignments\rpaformfillingchalleng\form_filling_challenge.robot">
+<test id="s1-t1" name="Form Filling Task">
+<kw name="Open Data Entry Form">
+<kw name="Open Available Browser" library="Autosphere.Browser">
+<doc>Opens the first available browser in the system in preferred order, or the
+given browser (``browser_selection``).</doc>
+<arguments>
+<arg>${url}</arg>
+</arguments>
+<msg timestamp="20210104 22:48:38.721" level="INFO">Creating an instance of the Chrome WebDriver.</msg>
+<msg timestamp="20210104 22:48:41.779" level="INFO">Created Chrome browser with arguments: --disable-web-security --allow-running-insecure-content --no-sandbox</msg>
+<msg timestamp="20210104 22:48:41.779" level="INFO" html="yes">&lt;p&gt;Attempted combinations:&lt;/p&gt;&lt;div class="doc"&gt;&lt;table&gt;&lt;tr&gt;&lt;th&gt;Browser&lt;/th&gt;&lt;th&gt;Headless&lt;/th&gt;&lt;th&gt;Download&lt;/th&gt;&lt;th&gt;Error&lt;/th&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Chrome&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;</msg>
+<msg timestamp="20210104 22:48:41.779" level="INFO">Opening url 'http://www.rpachallenge.com/'</msg>
+<status status="PASS" starttime="20210104 22:48:38.717" endtime="20210104 22:49:13.056"></status>
+</kw>
+<status status="PASS" starttime="20210104 22:48:38.716" endtime="20210104 22:49:13.056"></status>
+</kw>
+<kw name="Initiate Form Filling Process">
+<kw name="Click Button" library="Autosphere.Browser">
+<doc>Clicks the button identified by ``locator``.</doc>
+<arguments>
+<arg>Start</arg>
+</arguments>
+<msg timestamp="20210104 22:49:13.057" level="INFO">Clicking button 'Start'.</msg>
+<status status="PASS" starttime="20210104 22:49:13.057" endtime="20210104 22:49:13.148"></status>
+</kw>
+<status status="PASS" starttime="20210104 22:49:13.057" endtime="20210104 22:49:13.149"></status>
+</kw>
+<kw name="Read Excel Data And Fill the Form">
+<kw name="Open Workbook" library="Autosphere.Excel.Files">
+<doc>Open an existing Excel workbook.</doc>
+<arguments>
+<arg>Resources/challenge.xlsx</arg>
+</arguments>
+<msg timestamp="20210104 22:49:13.298" level="INFO">Opened workbook: &lt;Autosphere.Excel.Files.XlsxWorkbook object at 0x0000016715637DC8&gt;</msg>
+<status status="PASS" starttime="20210104 22:49:13.150" endtime="20210104 22:49:13.298"></status>
+</kw>
+<kw name="Read Worksheet As Table" library="Autosphere.Excel.Files">
+<doc>Read the content of a worksheet into a Table container. Allows
+sorting/filtering/manipulating using the `Autosphere.Tables` library.</doc>
+<arguments>
+<arg>header=True</arg>
+</arguments>
+<assign>
+<var>${personal_info}</var>
+</assign>
+<msg timestamp="20210104 22:49:13.316" level="INFO">Created table: Table(columns=['First Name', 'Last Name ', 'Company Name', 'Role in Company', 'Address', 'Email', 'Phone Number'], rows=999)</msg>
+<msg timestamp="20210104 22:49:13.362" level="INFO">${personal_info} = Table(columns=['First Name', 'Last Name', 'Company Name', 'Role in Company', 'Address', 'Email', 'Phone Number'], rows=10)</msg>
+<status status="PASS" starttime="20210104 22:49:13.299" endtime="20210104 22:49:13.362"></status>
+</kw>
+<kw name="Close Workbook" library="Autosphere.Excel.Files">
+<doc>Close the active workbook.</doc>
+<msg timestamp="20210104 22:49:13.362" level="INFO">Closing workbook: &lt;Autosphere.Excel.Files.XlsxWorkbook object at 0x0000016715637DC8&gt;</msg>
+<status status="PASS" starttime="20210104 22:49:13.362" endtime="20210104 22:49:13.363"></status>
+</kw>
+<kw name="${info} IN [ @{personal_info} ]" type="for">
+<kw name="${info} = {'First Name': 'John', 'Last Name': 'Smith', 'Company Name': 'IT Solutions', 'Role in Company': 'Analyst', 'Address': '98 North Road', 'Email': 'jsmith@itsolutions.co.uk', 'Phone Number': 40716543298}" type="foritem">
+<kw name="Fill Form With Data">
+<arguments>
+<arg>${info}</arg>
+</arguments>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelFirstName']</arg>
+<arg>${personal_data}[First Name]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:13.365" level="INFO">Typing text 'John' into text field 'xpath://input[@ng-reflect-name='labelFirstName']'.</msg>
+<status status="PASS" starttime="20210104 22:49:13.364" endtime="20210104 22:49:13.473"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelLastName']</arg>
+<arg>${personal_data}[Last Name]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:13.473" level="INFO">Typing text 'Smith' into text field 'xpath://input[@ng-reflect-name='labelLastName']'.</msg>
+<status status="PASS" starttime="20210104 22:49:13.473" endtime="20210104 22:49:13.599"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelAddress']</arg>
+<arg>${personal_data}[Address]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:13.600" level="INFO">Typing text '98 North Road' into text field 'xpath://input[@ng-reflect-name='labelAddress']'.</msg>
+<status status="PASS" starttime="20210104 22:49:13.600" endtime="20210104 22:49:13.745"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelEmail']</arg>
+<arg>${personal_data}[Email]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:13.745" level="INFO">Typing text 'jsmith@itsolutions.co.uk' into text field 'xpath://input[@ng-reflect-name='labelEmail']'.</msg>
+<status status="PASS" starttime="20210104 22:49:13.745" endtime="20210104 22:49:13.934"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelPhone']</arg>
+<arg>${personal_data}[Phone Number]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:13.935" level="INFO">Typing text '40716543298' into text field 'xpath://input[@ng-reflect-name='labelPhone']'.</msg>
+<status status="PASS" starttime="20210104 22:49:13.935" endtime="20210104 22:49:14.085"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelRole']</arg>
+<arg>${personal_data}[Role in Company]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:14.085" level="INFO">Typing text 'Analyst' into text field 'xpath://input[@ng-reflect-name='labelRole']'.</msg>
+<status status="PASS" starttime="20210104 22:49:14.085" endtime="20210104 22:49:14.262"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelCompanyName']</arg>
+<arg>${personal_data}[Company Name]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:14.262" level="INFO">Typing text 'IT Solutions' into text field 'xpath://input[@ng-reflect-name='labelCompanyName']'.</msg>
+<status status="PASS" starttime="20210104 22:49:14.262" endtime="20210104 22:49:14.408"></status>
+</kw>
+<kw name="Click Button" library="Autosphere.Browser">
+<doc>Clicks the button identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@type='submit']</arg>
+</arguments>
+<msg timestamp="20210104 22:49:14.409" level="INFO">Clicking button 'xpath://input[@type='submit']'.</msg>
+<status status="PASS" starttime="20210104 22:49:14.409" endtime="20210104 22:49:14.487"></status>
+</kw>
+<status status="PASS" starttime="20210104 22:49:13.364" endtime="20210104 22:49:14.487"></status>
+</kw>
+<status status="PASS" starttime="20210104 22:49:13.363" endtime="20210104 22:49:14.487"></status>
+</kw>
+<kw name="${info} = {'First Name': 'Jane', 'Last Name': 'Dorsey', 'Company Name': 'MediCare', 'Role in Company': 'Medical Engineer', 'Address': '11 Crown Street', 'Email': 'jdorsey@mc.com', 'Phone Number': 40791345621}" type="foritem">
+<kw name="Fill Form With Data">
+<arguments>
+<arg>${info}</arg>
+</arguments>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelFirstName']</arg>
+<arg>${personal_data}[First Name]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:14.488" level="INFO">Typing text 'Jane' into text field 'xpath://input[@ng-reflect-name='labelFirstName']'.</msg>
+<status status="PASS" starttime="20210104 22:49:14.488" endtime="20210104 22:49:14.581"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelLastName']</arg>
+<arg>${personal_data}[Last Name]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:14.582" level="INFO">Typing text 'Dorsey' into text field 'xpath://input[@ng-reflect-name='labelLastName']'.</msg>
+<status status="PASS" starttime="20210104 22:49:14.582" endtime="20210104 22:49:14.671"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelAddress']</arg>
+<arg>${personal_data}[Address]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:14.672" level="INFO">Typing text '11 Crown Street' into text field 'xpath://input[@ng-reflect-name='labelAddress']'.</msg>
+<status status="PASS" starttime="20210104 22:49:14.671" endtime="20210104 22:49:14.793"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelEmail']</arg>
+<arg>${personal_data}[Email]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:14.794" level="INFO">Typing text 'jdorsey@mc.com' into text field 'xpath://input[@ng-reflect-name='labelEmail']'.</msg>
+<status status="PASS" starttime="20210104 22:49:14.793" endtime="20210104 22:49:14.906"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelPhone']</arg>
+<arg>${personal_data}[Phone Number]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:14.906" level="INFO">Typing text '40791345621' into text field 'xpath://input[@ng-reflect-name='labelPhone']'.</msg>
+<status status="PASS" starttime="20210104 22:49:14.906" endtime="20210104 22:49:15.017"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelRole']</arg>
+<arg>${personal_data}[Role in Company]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:15.018" level="INFO">Typing text 'Medical Engineer' into text field 'xpath://input[@ng-reflect-name='labelRole']'.</msg>
+<status status="PASS" starttime="20210104 22:49:15.017" endtime="20210104 22:49:15.140"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelCompanyName']</arg>
+<arg>${personal_data}[Company Name]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:15.141" level="INFO">Typing text 'MediCare' into text field 'xpath://input[@ng-reflect-name='labelCompanyName']'.</msg>
+<status status="PASS" starttime="20210104 22:49:15.140" endtime="20210104 22:49:15.249"></status>
+</kw>
+<kw name="Click Button" library="Autosphere.Browser">
+<doc>Clicks the button identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@type='submit']</arg>
+</arguments>
+<msg timestamp="20210104 22:49:15.250" level="INFO">Clicking button 'xpath://input[@type='submit']'.</msg>
+<status status="PASS" starttime="20210104 22:49:15.249" endtime="20210104 22:49:15.304"></status>
+</kw>
+<status status="PASS" starttime="20210104 22:49:14.488" endtime="20210104 22:49:15.305"></status>
+</kw>
+<status status="PASS" starttime="20210104 22:49:14.488" endtime="20210104 22:49:15.305"></status>
+</kw>
+<kw name="${info} = {'First Name': 'Albert', 'Last Name': 'Kipling', 'Company Name': 'Waterfront', 'Role in Company': 'Accountant', 'Address': '22 Guild Street', 'Email': 'kipling@waterfront.com', 'Phone Number': 4073541..." type="foritem">
+<kw name="Fill Form With Data">
+<arguments>
+<arg>${info}</arg>
+</arguments>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelFirstName']</arg>
+<arg>${personal_data}[First Name]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:15.307" level="INFO">Typing text 'Albert' into text field 'xpath://input[@ng-reflect-name='labelFirstName']'.</msg>
+<status status="PASS" starttime="20210104 22:49:15.306" endtime="20210104 22:49:15.393"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelLastName']</arg>
+<arg>${personal_data}[Last Name]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:15.393" level="INFO">Typing text 'Kipling' into text field 'xpath://input[@ng-reflect-name='labelLastName']'.</msg>
+<status status="PASS" starttime="20210104 22:49:15.393" endtime="20210104 22:49:15.488"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelAddress']</arg>
+<arg>${personal_data}[Address]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:15.488" level="INFO">Typing text '22 Guild Street' into text field 'xpath://input[@ng-reflect-name='labelAddress']'.</msg>
+<status status="PASS" starttime="20210104 22:49:15.488" endtime="20210104 22:49:15.598"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelEmail']</arg>
+<arg>${personal_data}[Email]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:15.598" level="INFO">Typing text 'kipling@waterfront.com' into text field 'xpath://input[@ng-reflect-name='labelEmail']'.</msg>
+<status status="PASS" starttime="20210104 22:49:15.598" endtime="20210104 22:49:15.718"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelPhone']</arg>
+<arg>${personal_data}[Phone Number]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:15.718" level="INFO">Typing text '40735416854' into text field 'xpath://input[@ng-reflect-name='labelPhone']'.</msg>
+<status status="PASS" starttime="20210104 22:49:15.718" endtime="20210104 22:49:15.815"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelRole']</arg>
+<arg>${personal_data}[Role in Company]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:15.815" level="INFO">Typing text 'Accountant' into text field 'xpath://input[@ng-reflect-name='labelRole']'.</msg>
+<status status="PASS" starttime="20210104 22:49:15.815" endtime="20210104 22:49:15.910"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelCompanyName']</arg>
+<arg>${personal_data}[Company Name]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:15.910" level="INFO">Typing text 'Waterfront' into text field 'xpath://input[@ng-reflect-name='labelCompanyName']'.</msg>
+<status status="PASS" starttime="20210104 22:49:15.910" endtime="20210104 22:49:16.022"></status>
+</kw>
+<kw name="Click Button" library="Autosphere.Browser">
+<doc>Clicks the button identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@type='submit']</arg>
+</arguments>
+<msg timestamp="20210104 22:49:16.023" level="INFO">Clicking button 'xpath://input[@type='submit']'.</msg>
+<status status="PASS" starttime="20210104 22:49:16.022" endtime="20210104 22:49:16.074"></status>
+</kw>
+<status status="PASS" starttime="20210104 22:49:15.305" endtime="20210104 22:49:16.074"></status>
+</kw>
+<status status="PASS" starttime="20210104 22:49:15.305" endtime="20210104 22:49:16.074"></status>
+</kw>
+<kw name="${info} = {'First Name': 'Michael', 'Last Name': 'Robertson', 'Company Name': 'MediCare', 'Role in Company': 'IT Specialist', 'Address': '17 Farburn Terrace', 'Email': 'mrobertson@mc.com', 'Phone Number': 40733..." type="foritem">
+<kw name="Fill Form With Data">
+<arguments>
+<arg>${info}</arg>
+</arguments>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelFirstName']</arg>
+<arg>${personal_data}[First Name]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:16.075" level="INFO">Typing text 'Michael' into text field 'xpath://input[@ng-reflect-name='labelFirstName']'.</msg>
+<status status="PASS" starttime="20210104 22:49:16.075" endtime="20210104 22:49:16.175"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelLastName']</arg>
+<arg>${personal_data}[Last Name]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:16.175" level="INFO">Typing text 'Robertson' into text field 'xpath://input[@ng-reflect-name='labelLastName']'.</msg>
+<status status="PASS" starttime="20210104 22:49:16.175" endtime="20210104 22:49:16.282"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelAddress']</arg>
+<arg>${personal_data}[Address]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:16.282" level="INFO">Typing text '17 Farburn Terrace' into text field 'xpath://input[@ng-reflect-name='labelAddress']'.</msg>
+<status status="PASS" starttime="20210104 22:49:16.282" endtime="20210104 22:49:16.388"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelEmail']</arg>
+<arg>${personal_data}[Email]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:16.389" level="INFO">Typing text 'mrobertson@mc.com' into text field 'xpath://input[@ng-reflect-name='labelEmail']'.</msg>
+<status status="PASS" starttime="20210104 22:49:16.389" endtime="20210104 22:49:16.505"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelPhone']</arg>
+<arg>${personal_data}[Phone Number]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:16.506" level="INFO">Typing text '40733652145' into text field 'xpath://input[@ng-reflect-name='labelPhone']'.</msg>
+<status status="PASS" starttime="20210104 22:49:16.505" endtime="20210104 22:49:16.604"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelRole']</arg>
+<arg>${personal_data}[Role in Company]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:16.605" level="INFO">Typing text 'IT Specialist' into text field 'xpath://input[@ng-reflect-name='labelRole']'.</msg>
+<status status="PASS" starttime="20210104 22:49:16.605" endtime="20210104 22:49:16.710"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelCompanyName']</arg>
+<arg>${personal_data}[Company Name]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:16.711" level="INFO">Typing text 'MediCare' into text field 'xpath://input[@ng-reflect-name='labelCompanyName']'.</msg>
+<status status="PASS" starttime="20210104 22:49:16.710" endtime="20210104 22:49:16.805"></status>
+</kw>
+<kw name="Click Button" library="Autosphere.Browser">
+<doc>Clicks the button identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@type='submit']</arg>
+</arguments>
+<msg timestamp="20210104 22:49:16.805" level="INFO">Clicking button 'xpath://input[@type='submit']'.</msg>
+<status status="PASS" starttime="20210104 22:49:16.805" endtime="20210104 22:49:16.850"></status>
+</kw>
+<status status="PASS" starttime="20210104 22:49:16.074" endtime="20210104 22:49:16.850"></status>
+</kw>
+<status status="PASS" starttime="20210104 22:49:16.074" endtime="20210104 22:49:16.850"></status>
+</kw>
+<kw name="${info} = {'First Name': 'Doug', 'Last Name': 'Derrick', 'Company Name': 'Timepath Inc.', 'Role in Company': 'Analyst', 'Address': '99 Shire Oak Road', 'Email': 'dderrick@timepath.co.uk', 'Phone Number': 407998..." type="foritem">
+<kw name="Fill Form With Data">
+<arguments>
+<arg>${info}</arg>
+</arguments>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelFirstName']</arg>
+<arg>${personal_data}[First Name]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:16.851" level="INFO">Typing text 'Doug' into text field 'xpath://input[@ng-reflect-name='labelFirstName']'.</msg>
+<status status="PASS" starttime="20210104 22:49:16.851" endtime="20210104 22:49:16.948"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelLastName']</arg>
+<arg>${personal_data}[Last Name]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:16.948" level="INFO">Typing text 'Derrick' into text field 'xpath://input[@ng-reflect-name='labelLastName']'.</msg>
+<status status="PASS" starttime="20210104 22:49:16.948" endtime="20210104 22:49:17.056"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelAddress']</arg>
+<arg>${personal_data}[Address]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:17.056" level="INFO">Typing text '99 Shire Oak Road' into text field 'xpath://input[@ng-reflect-name='labelAddress']'.</msg>
+<status status="PASS" starttime="20210104 22:49:17.056" endtime="20210104 22:49:17.196"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelEmail']</arg>
+<arg>${personal_data}[Email]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:17.196" level="INFO">Typing text 'dderrick@timepath.co.uk' into text field 'xpath://input[@ng-reflect-name='labelEmail']'.</msg>
+<status status="PASS" starttime="20210104 22:49:17.196" endtime="20210104 22:49:17.308"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelPhone']</arg>
+<arg>${personal_data}[Phone Number]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:17.309" level="INFO">Typing text '40799885412' into text field 'xpath://input[@ng-reflect-name='labelPhone']'.</msg>
+<status status="PASS" starttime="20210104 22:49:17.308" endtime="20210104 22:49:17.400"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelRole']</arg>
+<arg>${personal_data}[Role in Company]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:17.401" level="INFO">Typing text 'Analyst' into text field 'xpath://input[@ng-reflect-name='labelRole']'.</msg>
+<status status="PASS" starttime="20210104 22:49:17.400" endtime="20210104 22:49:17.489"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelCompanyName']</arg>
+<arg>${personal_data}[Company Name]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:17.490" level="INFO">Typing text 'Timepath Inc.' into text field 'xpath://input[@ng-reflect-name='labelCompanyName']'.</msg>
+<status status="PASS" starttime="20210104 22:49:17.490" endtime="20210104 22:49:17.589"></status>
+</kw>
+<kw name="Click Button" library="Autosphere.Browser">
+<doc>Clicks the button identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@type='submit']</arg>
+</arguments>
+<msg timestamp="20210104 22:49:17.589" level="INFO">Clicking button 'xpath://input[@type='submit']'.</msg>
+<status status="PASS" starttime="20210104 22:49:17.589" endtime="20210104 22:49:17.632"></status>
+</kw>
+<status status="PASS" starttime="20210104 22:49:16.850" endtime="20210104 22:49:17.632"></status>
+</kw>
+<status status="PASS" starttime="20210104 22:49:16.850" endtime="20210104 22:49:17.632"></status>
+</kw>
+<kw name="${info} = {'First Name': 'Jessie', 'Last Name': 'Marlowe', 'Company Name': 'Aperture Inc.', 'Role in Company': 'Scientist', 'Address': '27 Cheshire Street', 'Email': 'jmarlowe@aperture.us', 'Phone Number': 4073..." type="foritem">
+<kw name="Fill Form With Data">
+<arguments>
+<arg>${info}</arg>
+</arguments>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelFirstName']</arg>
+<arg>${personal_data}[First Name]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:17.633" level="INFO">Typing text 'Jessie' into text field 'xpath://input[@ng-reflect-name='labelFirstName']'.</msg>
+<status status="PASS" starttime="20210104 22:49:17.633" endtime="20210104 22:49:17.721"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelLastName']</arg>
+<arg>${personal_data}[Last Name]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:17.721" level="INFO">Typing text 'Marlowe' into text field 'xpath://input[@ng-reflect-name='labelLastName']'.</msg>
+<status status="PASS" starttime="20210104 22:49:17.721" endtime="20210104 22:49:17.806"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelAddress']</arg>
+<arg>${personal_data}[Address]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:17.807" level="INFO">Typing text '27 Cheshire Street' into text field 'xpath://input[@ng-reflect-name='labelAddress']'.</msg>
+<status status="PASS" starttime="20210104 22:49:17.807" endtime="20210104 22:49:17.921"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelEmail']</arg>
+<arg>${personal_data}[Email]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:17.921" level="INFO">Typing text 'jmarlowe@aperture.us' into text field 'xpath://input[@ng-reflect-name='labelEmail']'.</msg>
+<status status="PASS" starttime="20210104 22:49:17.921" endtime="20210104 22:49:18.037"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelPhone']</arg>
+<arg>${personal_data}[Phone Number]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:18.037" level="INFO">Typing text '40733154268' into text field 'xpath://input[@ng-reflect-name='labelPhone']'.</msg>
+<status status="PASS" starttime="20210104 22:49:18.037" endtime="20210104 22:49:18.135"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelRole']</arg>
+<arg>${personal_data}[Role in Company]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:18.135" level="INFO">Typing text 'Scientist' into text field 'xpath://input[@ng-reflect-name='labelRole']'.</msg>
+<status status="PASS" starttime="20210104 22:49:18.135" endtime="20210104 22:49:18.232"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelCompanyName']</arg>
+<arg>${personal_data}[Company Name]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:18.232" level="INFO">Typing text 'Aperture Inc.' into text field 'xpath://input[@ng-reflect-name='labelCompanyName']'.</msg>
+<status status="PASS" starttime="20210104 22:49:18.232" endtime="20210104 22:49:18.359"></status>
+</kw>
+<kw name="Click Button" library="Autosphere.Browser">
+<doc>Clicks the button identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@type='submit']</arg>
+</arguments>
+<msg timestamp="20210104 22:49:18.359" level="INFO">Clicking button 'xpath://input[@type='submit']'.</msg>
+<status status="PASS" starttime="20210104 22:49:18.359" endtime="20210104 22:49:18.399"></status>
+</kw>
+<status status="PASS" starttime="20210104 22:49:17.633" endtime="20210104 22:49:18.399"></status>
+</kw>
+<status status="PASS" starttime="20210104 22:49:17.633" endtime="20210104 22:49:18.399"></status>
+</kw>
+<kw name="${info} = {'First Name': 'Stan', 'Last Name': 'Hamm', 'Company Name': 'Sugarwell', 'Role in Company': 'Advisor', 'Address': '10 Dam Road', 'Email': 'shamm@sugarwell.org', 'Phone Number': 40712462257}" type="foritem">
+<kw name="Fill Form With Data">
+<arguments>
+<arg>${info}</arg>
+</arguments>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelFirstName']</arg>
+<arg>${personal_data}[First Name]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:18.400" level="INFO">Typing text 'Stan' into text field 'xpath://input[@ng-reflect-name='labelFirstName']'.</msg>
+<status status="PASS" starttime="20210104 22:49:18.400" endtime="20210104 22:49:18.502"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelLastName']</arg>
+<arg>${personal_data}[Last Name]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:18.502" level="INFO">Typing text 'Hamm' into text field 'xpath://input[@ng-reflect-name='labelLastName']'.</msg>
+<status status="PASS" starttime="20210104 22:49:18.502" endtime="20210104 22:49:18.585"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelAddress']</arg>
+<arg>${personal_data}[Address]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:18.586" level="INFO">Typing text '10 Dam Road' into text field 'xpath://input[@ng-reflect-name='labelAddress']'.</msg>
+<status status="PASS" starttime="20210104 22:49:18.585" endtime="20210104 22:49:18.679"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelEmail']</arg>
+<arg>${personal_data}[Email]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:18.680" level="INFO">Typing text 'shamm@sugarwell.org' into text field 'xpath://input[@ng-reflect-name='labelEmail']'.</msg>
+<status status="PASS" starttime="20210104 22:49:18.679" endtime="20210104 22:49:18.791"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelPhone']</arg>
+<arg>${personal_data}[Phone Number]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:18.793" level="INFO">Typing text '40712462257' into text field 'xpath://input[@ng-reflect-name='labelPhone']'.</msg>
+<status status="PASS" starttime="20210104 22:49:18.792" endtime="20210104 22:49:18.887"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelRole']</arg>
+<arg>${personal_data}[Role in Company]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:18.888" level="INFO">Typing text 'Advisor' into text field 'xpath://input[@ng-reflect-name='labelRole']'.</msg>
+<status status="PASS" starttime="20210104 22:49:18.887" endtime="20210104 22:49:18.977"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelCompanyName']</arg>
+<arg>${personal_data}[Company Name]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:18.978" level="INFO">Typing text 'Sugarwell' into text field 'xpath://input[@ng-reflect-name='labelCompanyName']'.</msg>
+<status status="PASS" starttime="20210104 22:49:18.977" endtime="20210104 22:49:19.073"></status>
+</kw>
+<kw name="Click Button" library="Autosphere.Browser">
+<doc>Clicks the button identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@type='submit']</arg>
+</arguments>
+<msg timestamp="20210104 22:49:19.073" level="INFO">Clicking button 'xpath://input[@type='submit']'.</msg>
+<status status="PASS" starttime="20210104 22:49:19.073" endtime="20210104 22:49:19.121"></status>
+</kw>
+<status status="PASS" starttime="20210104 22:49:18.399" endtime="20210104 22:49:19.121"></status>
+</kw>
+<status status="PASS" starttime="20210104 22:49:18.399" endtime="20210104 22:49:19.121"></status>
+</kw>
+<kw name="${info} = {'First Name': 'Michelle', 'Last Name': 'Norton', 'Company Name': 'Aperture Inc.', 'Role in Company': 'Scientist', 'Address': '13 White Rabbit Street', 'Email': 'mnorton@aperture.us', 'Phone Number': ..." type="foritem">
+<kw name="Fill Form With Data">
+<arguments>
+<arg>${info}</arg>
+</arguments>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelFirstName']</arg>
+<arg>${personal_data}[First Name]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:19.122" level="INFO">Typing text 'Michelle' into text field 'xpath://input[@ng-reflect-name='labelFirstName']'.</msg>
+<status status="PASS" starttime="20210104 22:49:19.122" endtime="20210104 22:49:19.216"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelLastName']</arg>
+<arg>${personal_data}[Last Name]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:19.217" level="INFO">Typing text 'Norton' into text field 'xpath://input[@ng-reflect-name='labelLastName']'.</msg>
+<status status="PASS" starttime="20210104 22:49:19.216" endtime="20210104 22:49:19.306"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelAddress']</arg>
+<arg>${personal_data}[Address]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:19.306" level="INFO">Typing text '13 White Rabbit Street' into text field 'xpath://input[@ng-reflect-name='labelAddress']'.</msg>
+<status status="PASS" starttime="20210104 22:49:19.306" endtime="20210104 22:49:19.434"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelEmail']</arg>
+<arg>${personal_data}[Email]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:19.434" level="INFO">Typing text 'mnorton@aperture.us' into text field 'xpath://input[@ng-reflect-name='labelEmail']'.</msg>
+<status status="PASS" starttime="20210104 22:49:19.434" endtime="20210104 22:49:19.560"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelPhone']</arg>
+<arg>${personal_data}[Phone Number]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:19.560" level="INFO">Typing text '40731254562' into text field 'xpath://input[@ng-reflect-name='labelPhone']'.</msg>
+<status status="PASS" starttime="20210104 22:49:19.560" endtime="20210104 22:49:19.663"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelRole']</arg>
+<arg>${personal_data}[Role in Company]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:19.663" level="INFO">Typing text 'Scientist' into text field 'xpath://input[@ng-reflect-name='labelRole']'.</msg>
+<status status="PASS" starttime="20210104 22:49:19.663" endtime="20210104 22:49:19.779"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelCompanyName']</arg>
+<arg>${personal_data}[Company Name]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:19.779" level="INFO">Typing text 'Aperture Inc.' into text field 'xpath://input[@ng-reflect-name='labelCompanyName']'.</msg>
+<status status="PASS" starttime="20210104 22:49:19.779" endtime="20210104 22:49:19.889"></status>
+</kw>
+<kw name="Click Button" library="Autosphere.Browser">
+<doc>Clicks the button identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@type='submit']</arg>
+</arguments>
+<msg timestamp="20210104 22:49:19.889" level="INFO">Clicking button 'xpath://input[@type='submit']'.</msg>
+<status status="PASS" starttime="20210104 22:49:19.889" endtime="20210104 22:49:19.943"></status>
+</kw>
+<status status="PASS" starttime="20210104 22:49:19.121" endtime="20210104 22:49:19.943"></status>
+</kw>
+<status status="PASS" starttime="20210104 22:49:19.121" endtime="20210104 22:49:19.943"></status>
+</kw>
+<kw name="${info} = {'First Name': 'Stacy', 'Last Name': 'Shelby', 'Company Name': 'TechDev', 'Role in Company': 'HR Manager', 'Address': '19 Pineapple Boulevard', 'Email': 'sshelby@techdev.com', 'Phone Number': 40741785..." type="foritem">
+<kw name="Fill Form With Data">
+<arguments>
+<arg>${info}</arg>
+</arguments>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelFirstName']</arg>
+<arg>${personal_data}[First Name]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:19.944" level="INFO">Typing text 'Stacy' into text field 'xpath://input[@ng-reflect-name='labelFirstName']'.</msg>
+<status status="PASS" starttime="20210104 22:49:19.944" endtime="20210104 22:49:20.034"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelLastName']</arg>
+<arg>${personal_data}[Last Name]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:20.034" level="INFO">Typing text 'Shelby' into text field 'xpath://input[@ng-reflect-name='labelLastName']'.</msg>
+<status status="PASS" starttime="20210104 22:49:20.034" endtime="20210104 22:49:20.127"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelAddress']</arg>
+<arg>${personal_data}[Address]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:20.128" level="INFO">Typing text '19 Pineapple Boulevard' into text field 'xpath://input[@ng-reflect-name='labelAddress']'.</msg>
+<status status="PASS" starttime="20210104 22:49:20.127" endtime="20210104 22:49:20.271"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelEmail']</arg>
+<arg>${personal_data}[Email]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:20.272" level="INFO">Typing text 'sshelby@techdev.com' into text field 'xpath://input[@ng-reflect-name='labelEmail']'.</msg>
+<status status="PASS" starttime="20210104 22:49:20.271" endtime="20210104 22:49:20.397"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelPhone']</arg>
+<arg>${personal_data}[Phone Number]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:20.397" level="INFO">Typing text '40741785214' into text field 'xpath://input[@ng-reflect-name='labelPhone']'.</msg>
+<status status="PASS" starttime="20210104 22:49:20.397" endtime="20210104 22:49:20.513"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelRole']</arg>
+<arg>${personal_data}[Role in Company]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:20.513" level="INFO">Typing text 'HR Manager' into text field 'xpath://input[@ng-reflect-name='labelRole']'.</msg>
+<status status="PASS" starttime="20210104 22:49:20.513" endtime="20210104 22:49:20.627"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelCompanyName']</arg>
+<arg>${personal_data}[Company Name]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:20.628" level="INFO">Typing text 'TechDev' into text field 'xpath://input[@ng-reflect-name='labelCompanyName']'.</msg>
+<status status="PASS" starttime="20210104 22:49:20.628" endtime="20210104 22:49:20.729"></status>
+</kw>
+<kw name="Click Button" library="Autosphere.Browser">
+<doc>Clicks the button identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@type='submit']</arg>
+</arguments>
+<msg timestamp="20210104 22:49:20.730" level="INFO">Clicking button 'xpath://input[@type='submit']'.</msg>
+<status status="PASS" starttime="20210104 22:49:20.729" endtime="20210104 22:49:20.782"></status>
+</kw>
+<status status="PASS" starttime="20210104 22:49:19.943" endtime="20210104 22:49:20.782"></status>
+</kw>
+<status status="PASS" starttime="20210104 22:49:19.943" endtime="20210104 22:49:20.782"></status>
+</kw>
+<kw name="${info} = {'First Name': 'Lara', 'Last Name': 'Palmer', 'Company Name': 'Timepath Inc.', 'Role in Company': 'Programmer', 'Address': '87 Orange Street', 'Email': 'lpalmer@timepath.co.uk', 'Phone Number': 407316..." type="foritem">
+<kw name="Fill Form With Data">
+<arguments>
+<arg>${info}</arg>
+</arguments>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelFirstName']</arg>
+<arg>${personal_data}[First Name]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:20.783" level="INFO">Typing text 'Lara' into text field 'xpath://input[@ng-reflect-name='labelFirstName']'.</msg>
+<status status="PASS" starttime="20210104 22:49:20.783" endtime="20210104 22:49:20.877"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelLastName']</arg>
+<arg>${personal_data}[Last Name]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:20.879" level="INFO">Typing text 'Palmer' into text field 'xpath://input[@ng-reflect-name='labelLastName']'.</msg>
+<status status="PASS" starttime="20210104 22:49:20.878" endtime="20210104 22:49:20.979"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelAddress']</arg>
+<arg>${personal_data}[Address]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:20.980" level="INFO">Typing text '87 Orange Street' into text field 'xpath://input[@ng-reflect-name='labelAddress']'.</msg>
+<status status="PASS" starttime="20210104 22:49:20.979" endtime="20210104 22:49:21.092"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelEmail']</arg>
+<arg>${personal_data}[Email]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:21.092" level="INFO">Typing text 'lpalmer@timepath.co.uk' into text field 'xpath://input[@ng-reflect-name='labelEmail']'.</msg>
+<status status="PASS" starttime="20210104 22:49:21.092" endtime="20210104 22:49:21.234"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelPhone']</arg>
+<arg>${personal_data}[Phone Number]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:21.235" level="INFO">Typing text '40731653845' into text field 'xpath://input[@ng-reflect-name='labelPhone']'.</msg>
+<status status="PASS" starttime="20210104 22:49:21.234" endtime="20210104 22:49:21.361"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelRole']</arg>
+<arg>${personal_data}[Role in Company]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:21.361" level="INFO">Typing text 'Programmer' into text field 'xpath://input[@ng-reflect-name='labelRole']'.</msg>
+<status status="PASS" starttime="20210104 22:49:21.361" endtime="20210104 22:49:21.469"></status>
+</kw>
+<kw name="Input Text" library="Autosphere.Browser">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@ng-reflect-name='labelCompanyName']</arg>
+<arg>${personal_data}[Company Name]</arg>
+</arguments>
+<msg timestamp="20210104 22:49:21.470" level="INFO">Typing text 'Timepath Inc.' into text field 'xpath://input[@ng-reflect-name='labelCompanyName']'.</msg>
+<status status="PASS" starttime="20210104 22:49:21.469" endtime="20210104 22:49:21.568"></status>
+</kw>
+<kw name="Click Button" library="Autosphere.Browser">
+<doc>Clicks the button identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://input[@type='submit']</arg>
+</arguments>
+<msg timestamp="20210104 22:49:21.569" level="INFO">Clicking button 'xpath://input[@type='submit']'.</msg>
+<status status="PASS" starttime="20210104 22:49:21.568" endtime="20210104 22:49:21.625"></status>
+</kw>
+<status status="PASS" starttime="20210104 22:49:20.783" endtime="20210104 22:49:21.625"></status>
+</kw>
+<status status="PASS" starttime="20210104 22:49:20.782" endtime="20210104 22:49:21.625"></status>
+</kw>
+<status status="PASS" starttime="20210104 22:49:13.363" endtime="20210104 22:49:21.625"></status>
+</kw>
+<status status="PASS" starttime="20210104 22:49:13.149" endtime="20210104 22:49:21.625"></status>
+</kw>
+<status status="PASS" starttime="20210104 22:48:38.715" endtime="20210104 22:49:21.626" critical="yes"></status>
+</test>
+<status status="PASS" starttime="20210104 22:48:32.086" endtime="20210104 22:49:21.627"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0">Critical Tasks</stat>
+<stat pass="1" fail="0">All Tasks</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" id="s1" name="Form Filling Challenge">Form Filling Challenge</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
